@@ -1,0 +1,8 @@
+﻿  automaton.cpp
+C:\Users\MainComp\jv\@RLO\EE\general\timetables\automaton\automaton\automaton.cpp(98,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\MainComp\jv\@RLO\EE\general\timetables\automaton\automaton\automaton.cpp(139,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\MainComp\jv\@RLO\EE\general\timetables\automaton\automaton\automaton.cpp(180,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\MainComp\jv\@RLO\EE\general\timetables\automaton\automaton\automaton.cpp(220,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\MainComp\jv\@RLO\EE\general\timetables\automaton\automaton\automaton.cpp(260,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\MainComp\jv\@RLO\EE\general\timetables\automaton\automaton\automaton.cpp(299,21): warning C4018: '<': signed/unsigned mismatch
+  automaton.vcxproj -> C:\Users\MainComp\jv\@RLO\EE\general\timetables\automaton\Debug\automaton.exe
