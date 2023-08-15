@@ -6,4 +6,4 @@
   My aim is to create a model network based on stations and public transport routes that operate in and close to Leiden, 
 and create a application which computes the optimal routes between stations. 
   This repository contains the application itself, the files necessary for its successful execution, including timetables,
-and an automaton that was used to extract timetables from the source.
+and an automaton that was used to extract timetables from the original sources.
