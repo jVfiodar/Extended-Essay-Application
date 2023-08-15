@@ -1,0 +1,8 @@
+NS Intercity DHC - LCS
+0
+NS Sprinter DHC - LCS
+0
+NS Sprinter LCS - DHC
+1
+NS Intercity LCS - DHC
+1

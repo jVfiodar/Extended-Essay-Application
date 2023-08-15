@@ -1,0 +1,12 @@
+NS Sprinter LCS - LAM
+0
+NS Sprinter LAM - LCS
+1
+NS Intercity DHC - LCS
+1
+NS Sprinter DHC - LCS
+1
+NS Sprinter LCS - DHC
+0
+NS Intercity LCS - DHC
+0
