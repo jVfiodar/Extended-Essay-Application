@@ -331,7 +331,7 @@ void station::Relaxation(string mode, string day, int ti) {
 					//int sId = stationFind(name);
 					int toId = routeDB[routeFind(r)].getRouteStation(i);
 					if (!stationDB[toId].getUsed()) {
-						if (mode == "ttp") { //"ttp"=transfers, time, price (priority)
+						if (mode == "trans") { //"ttp"=transfers, time, price (priority)
 							if (stationDB[toId].getTrans() > stationDB[sId].getTrans() + 1) { //comparing number of transfers
 								stationDB[toId].setPath(sId, toId, r);
 								stationDB[toId].setUpdate(r, temp[i], sId, stationDB[sId].getTrans() + 1, price+stationDB[sId].getPrice(), temp[s]);
@@ -349,44 +349,16 @@ void station::Relaxation(string mode, string day, int ti) {
 									stationDB[toId].setEntered();
 								}
 							}
-							else if (stationDB[toId].getTrans() == stationDB[sId].getTrans() + 1 && stationDB[toId].getArrTime() == temp[i] && stationDB[sId].getPrice()+price < stationDB[toId].getPrice()) { // transfers and time equal, comparing prices
-								stationDB[toId].setPath(sId, toId, r);
-								stationDB[toId].setUpdate(r, temp[i], sId, stationDB[sId].getTrans() + 1, price+stationDB[sId].getPrice(), temp[s]);
-								if (!stationDB[toId].getEntered()) {
-									qBfs.push(toId);
-									stationDB[toId].setEntered();
-								}
-							}
 						}
-						else if (mode == "tpt") { // "tpt"=time, price, transfers (priority)
+						else if (mode == "time") { 
 							if (stationDB[toId].getArrTime() > temp[i]) { // comparing time
 								stationDB[toId].setPath(sId, toId, r);
 								stationDB[toId].setEntered();
 								stationDB[toId].setUpdate(r, temp[i], sId, stationDB[sId].getTrans() + 1, price + stationDB[sId].getPrice(), temp[s]);
 							}
-							else if (stationDB[toId].getArrTime() == temp[i] && stationDB[toId].getPrice() > stationDB[sId].getPrice() + price) { // time equal, comparing prices
-								stationDB[toId].setPath(sId, toId, r);
-								stationDB[toId].setEntered();
-								stationDB[toId].setUpdate(r, temp[i], sId, stationDB[sId].getTrans() + 1, price + stationDB[sId].getPrice(), temp[s]);
-							}
-							else if (stationDB[toId].getArrTime() == temp[i] && stationDB[toId].getPrice() == stationDB[sId].getPrice() + price && stationDB[toId].getTrans() > stationDB[sId].getTrans() + 1) { // time and prices equal, comparing transfers
-								stationDB[toId].setPath(sId, toId, r);
-								stationDB[toId].setEntered();
-								stationDB[toId].setUpdate(r, temp[i], sId, stationDB[sId].getTrans() + 1, price + stationDB[sId].getPrice(), temp[s]);
-							}
 						}
-						else if (mode == "ptt") { // "ptt"=price, time, transfers (priority)
+						else if (mode == "price") { 
 							if (stationDB[toId].getPrice() > price + stationDB[sId].getPrice()) { //comparing price
-								stationDB[toId].setPath(sId, toId, r);
-								stationDB[toId].setEntered();
-								stationDB[toId].setUpdate(r, temp[i], sId, stationDB[sId].getTrans() + 1, price + stationDB[sId].getPrice(), temp[s]);
-							}
-							else if (stationDB[toId].getPrice() == price + stationDB[sId].getPrice() && stationDB[toId].getArrTime() > temp[i]) { //price equal, comparing time
-								stationDB[toId].setPath(sId, toId, r);
-								stationDB[toId].setEntered();
-								stationDB[toId].setUpdate(r, temp[i], sId, stationDB[sId].getTrans() + 1, price + stationDB[sId].getPrice(), temp[s]);
-							}
-							else if (stationDB[toId].getPrice() == price + stationDB[sId].getPrice() && stationDB[toId].getArrTime() == temp[i] && stationDB[toId].getTrans() > stationDB[sId].getTrans() + 1) { //price and time equal, comparing transfers
 								stationDB[toId].setPath(sId, toId, r);
 								stationDB[toId].setEntered();
 								stationDB[toId].setUpdate(r, temp[i], sId, stationDB[sId].getTrans() + 1, price + stationDB[sId].getPrice(), temp[s]);
@@ -417,7 +389,7 @@ void station::Relaxation(string mode, string day, int ti) {
 			int sId = stationFind(s);
 			int toId = stationFind(f);
 			if (!stationDB[toId].getUsed()) {
-				if (mode == "ttp") { //"ttp"=transfers, time, price (priority)
+				if (mode == "trans") { //"ttp"=transfers, time, price (priority)
 					if (stationDB[toId].getTrans() > stationDB[sId].getTrans()) { //comparing number of transfers
 						stationDB[toId].setPath(sId, toId, r);
 						// "ft" always stands for "on foot" or "walking"
@@ -436,44 +408,16 @@ void station::Relaxation(string mode, string day, int ti) {
 							stationDB[toId].setEntered();
 						}
 					}
-					else if (stationDB[toId].getTrans() == stationDB[sId].getTrans() && stationDB[toId].getArrTime() == stationDB[sId].getArrTime() + ti && stationDB[sId].getPrice() < stationDB[toId].getPrice()) { // transfers and time equal, comparing prices
-						stationDB[toId].setPath(sId, toId, r);
-						stationDB[toId].setUpdate("ft", stationDB[sId].getArrTime() + ti, sId, stationDB[sId].getTrans(), stationDB[sId].getPrice(), stationDB[sId].getArrTime());
-						if (!stationDB[toId].getEntered()) {
-							qBfs.push(toId);
-							stationDB[toId].setEntered();
-						}
-					}
 				}
-				else if (mode == "tpt") { // "tpt"=time, price, transfers (priority)
+				else if (mode == "time") { 
 					if (stationDB[toId].getArrTime() > stationDB[sId].getArrTime()+ti) { // comparing time
 						stationDB[toId].setPath(sId, toId, r);
 						stationDB[toId].setEntered();
 						stationDB[toId].setUpdate("ft", stationDB[sId].getArrTime() + ti, sId, stationDB[sId].getTrans(), stationDB[sId].getPrice(), stationDB[sId].getArrTime());
 					}
-					else if (stationDB[toId].getArrTime() == stationDB[sId].getArrTime() + ti && stationDB[toId].getPrice() > stationDB[sId].getPrice()) { // time equal, comparing prices
-						stationDB[toId].setPath(sId, toId, r);
-						stationDB[toId].setEntered();
-						stationDB[toId].setUpdate("ft", stationDB[sId].getArrTime() + ti, sId, stationDB[sId].getTrans(), stationDB[sId].getPrice(), stationDB[sId].getArrTime());
-					}
-					else if (stationDB[toId].getArrTime() == stationDB[sId].getArrTime() + ti && stationDB[toId].getPrice() == stationDB[sId].getPrice() && stationDB[toId].getTrans() > stationDB[sId].getTrans()) { // time and prices equal, comparing transfers
-						stationDB[toId].setPath(sId, toId, r);
-						stationDB[toId].setEntered();
-						stationDB[toId].setUpdate("ft", stationDB[sId].getArrTime() + ti, sId, stationDB[sId].getTrans(), stationDB[sId].getPrice(), stationDB[sId].getArrTime());
-					}
 				}
-				else if (mode == "ptt") { // "ptt"=price, time, transfers (priority)
+				else if (mode == "price") { 
 					if (stationDB[toId].getPrice() > stationDB[sId].getPrice()) { //comparing price
-						stationDB[toId].setPath(sId, toId, r);
-						stationDB[toId].setEntered();
-						stationDB[toId].setUpdate("ft", stationDB[sId].getArrTime() + ti, sId, stationDB[sId].getTrans(), stationDB[sId].getPrice(), stationDB[sId].getArrTime());
-					}
-					else if (stationDB[toId].getPrice() == stationDB[sId].getPrice() && stationDB[toId].getArrTime() > stationDB[sId].getArrTime() + ti) { //price equal, comparing time
-						stationDB[toId].setPath(sId, toId, r);
-						stationDB[toId].setEntered();
-						stationDB[toId].setUpdate("ft", stationDB[sId].getArrTime() + ti, sId, stationDB[sId].getTrans(), stationDB[sId].getPrice(), stationDB[sId].getArrTime());
-					}
-					else if (stationDB[toId].getPrice() == stationDB[sId].getPrice() && stationDB[toId].getArrTime() == stationDB[sId].getArrTime() + ti && stationDB[toId].getTrans() > stationDB[sId].getTrans()) { //price and time equal, comparing transfers
 						stationDB[toId].setPath(sId, toId, r);
 						stationDB[toId].setEntered();
 						stationDB[toId].setUpdate("ft", stationDB[sId].getArrTime() + ti, sId, stationDB[sId].getTrans(), stationDB[sId].getPrice(), stationDB[sId].getArrTime());
@@ -572,7 +516,7 @@ void bfs(string s, string f, string day, int ti) { // Computes the route with mi
 		int v = qBfs.front();
 		//cout << "\t\t\tDEBUG: vertice " << v << '\n';
 		qBfs.pop();
-		stationDB[v].Relaxation("ttp", day, stationDB[v].getArrTime()); // "ttp"=transfers, time, price
+		stationDB[v].Relaxation("trans", day, stationDB[v].getArrTime()); // "ttp"=transfers, time, price
 		stationDB[v].setUsed();
 	}
 	vector<int> path;
@@ -638,7 +582,7 @@ void dijkstra(string s, string f, string mode, string day, int ti) { // Computin
 			}
 			if (mn == inf)
 				break;
-			stationDB[index].Relaxation("tpt", day, mn);
+			stationDB[index].Relaxation("time", day, mn);
 			stationDB[index].setUsed();
 		}
 		if (mode == "price") {
@@ -652,7 +596,7 @@ void dijkstra(string s, string f, string mode, string day, int ti) { // Computin
 			}
 			if (abs(mn - inf) < 1)
 				break;
-			stationDB[index].Relaxation("ptt", day, stationDB[index].getArrTime());
+			stationDB[index].Relaxation("price", day, stationDB[index].getArrTime());
 			stationDB[index].setUsed();
 		}
 	}
