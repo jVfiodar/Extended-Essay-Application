@@ -1,5 +1,5 @@
 # Extended-Essay-Application
-  I am [REDACTED], a student at [REDACTED]. A discipline "Extended Essay" is present in my curriculum. It is a small research in a topic of the student's choice.
+  I am Fiodar. A discipline "Extended Essay" was a part of the International Diploma curriculum. It is a small research in a topic of the student's choice.
   My topic is: "Use and implementation of algorithms connected with graph theory for calculating optimal 
 (in terms of spent time, price, number of transfers or a combination of these criteria) commuting routes".
   My aim is to create a model network based on stations and public transport routes that operate in and close to Leiden, 
